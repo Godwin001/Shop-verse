@@ -11,7 +11,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 export default function CompanyDirectory() {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     const fetchCompanies = async () => {
       try {

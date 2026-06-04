@@ -55,8 +55,9 @@ export default function CompanyStaffPage() {
       flex: 1.2,
       filter: true
     },
+    // Here, the field value shoud be equal to the value of the parameters in the sql for instance full_name is the same as in sql  
     { 
-      field: 'name', 
+      field: 'full_name', 
       headerName: 'Name', 
       flex: 1.5,
       filter: true
@@ -68,19 +69,7 @@ export default function CompanyStaffPage() {
       filter: true
     },
     { 
-      field: 'phone', 
-      headerName: 'Phone', 
-      flex: 1.2,
-      filter: true
-    },
-    { 
-      field: 'department', 
-      headerName: 'Department', 
-      flex: 1.3,
-      filter: true
-    },
-    { 
-      field: 'role', 
+      field: 'user_role', 
       headerName: 'Role', 
       flex: 1.2,
       filter: true
@@ -95,8 +84,7 @@ export default function CompanyStaffPage() {
           <div>
             <button
               onClick={() => navigate('/tech/companies')}
-              className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors mb-3 font-mono text-sm"
-            >
+              className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors mb-3 font-mono text-sm">
               ← Back to Companies
             </button>
             <h1 className="text-3xl font-mono font-bold tracking-tight text-blue-400">

@@ -11,6 +11,7 @@ interface StaffTableProps {
   staffData: any[];
 }
 
+//this place is connected to staff managementpage to display the just added staff CODE:SMP29/ST14
 const StaffTable = ({ staffData }: StaffTableProps) => {
   const columnDefs = [
   { field: 'staff_id', headerName: 'ID', width: 100 },

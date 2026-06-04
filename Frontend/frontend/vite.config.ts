@@ -11,4 +11,19 @@ export default defineConfig({
       presets: [reactCompilerPreset()] 
     })
   ],
+ server: {
+    host: '0.0.0.0', // Broadcasts the server so the tunnel can find it
+    port: 5173,
+    strictPort: true,
+    allowedHosts: true, // Disables Vite's host checking walls
+    
+    // THE SECRET FIX: This forces Vite's code injector to use secure websockets
+    // compatible with localtunnel's safety proxy
+    hmr: {
+      protocol: 'ws',
+      host: 'localhost',
+    },
+  }
+  
 })
+

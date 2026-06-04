@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from models import User, Company # Import from our new blueprints file
 
-def delete_staff_member(db: Session, user_id: int):
-    db_user = db.query(User).filter(User.user_id == user_id).first()
+def delete_staff_member(db: Session, user_id: str):
+    db_user = db.query(User).filter(User.user_id == user_id)
     if not db_user:
         raise HTTPException(status_code=404, detail="Staff not found")
     db.delete(db_user)
