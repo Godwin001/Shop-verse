@@ -23,6 +23,10 @@ export default defineConfig({
       protocol: 'ws',
       host: 'localhost',
     },
+  },
+  build: {
+    chunkSizeWarningLimit: 5000,
+
   }
   
 })

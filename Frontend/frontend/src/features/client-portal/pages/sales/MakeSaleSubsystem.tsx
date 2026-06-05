@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { mockInventoryStorage, type InventoryItem } from '../inventory/mockInventoryStorage';
 import { mockSalesStorage, type SalesInvoiceLine } from './mockSalesStorage';
 
-export default function SalesSubsystem() {
-  const navigate = useNavigate();
+interface SubViewProps {
+  onBack: () => void;
+}
+
+export default function SalesSubsystem({ onBack }: SubViewProps) {
   const [activeTab, setActiveTab] = useState<'TERMINAL' | 'HISTORY'>('TERMINAL');
   
   const companyName = localStorage.getItem('company_name') || 'No Active Workspace Found';
@@ -45,7 +47,7 @@ export default function SalesSubsystem() {
       <main className="flex-grow p-4 relative w-full mx-auto max-w-[1700px]">
         <div className="flex justify-between items-center mb-6 mt-2">
           <button 
-            onClick={() => navigate('/dashboard')}
+            onClick={onBack}
             className="text-slate-700 hover:text-slate-900 flex items-center gap-1 font-mono font-bold text-xs bg-white/80 px-3 py-1.5 rounded-lg border border-slate-300 shadow-sm cursor-pointer"
           >
             ↩ CORE SYSTEM MENU

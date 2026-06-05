@@ -1,5 +1,4 @@
 export interface InventoryItem {
-  invoiceNo: string;
   id: string;
   itemCode: string;
   itemName: string;
@@ -99,7 +98,7 @@ export const mockInventoryStorage = {
         currentInventory[existingIdx].salePrice = incomingItem.salePrice;
         currentInventory[existingIdx].expiryDate = incomingItem.expiryDate;
         currentInventory[existingIdx].supplier = incomingItem.supplier;
-        currentInventory[existingIdx].invoiceNumber = incomingItem.invoiceNo;
+        currentInventory[existingIdx].invoiceNumber = incomingItem.invoiceNumber;
         if (incomingItem.costPrice > 0) {
           currentInventory[existingIdx].salePercentage = parseFloat(
             (((incomingItem.salePrice - incomingItem.costPrice) / incomingItem.costPrice) * 100).toFixed(1)

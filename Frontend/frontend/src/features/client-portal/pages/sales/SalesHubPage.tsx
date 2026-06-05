@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MakeSaleSubsystem from './MakeSaleSubsystem';
 import TodaySalesSubsystem from './TodaySalesSubsystem';
@@ -9,8 +9,9 @@ export default function SalesHubPage() {
   const [commentText, setCommentText] = useState('');
   const [showCommentModal, setShowCommentModal] = useState(false);
 
-  const [companyName, setCompanyName] = useState(() => localStorage.getItem('company_name') || 'SHOP-VERSE WORKSPACE');
-  const [staffId, setStaffId] = useState(() => localStorage.getItem('staff_id') || 'Offline');
+  const [companyName] = useState(() => localStorage.getItem('company_name') || 'SHOP-VERSE WORKSPACE');
+  const [staffId] = useState(() => localStorage.getItem('staff_id') || 'Offline');
+
 
   if (activeSubView === 'make-sale') {
     return <MakeSaleSubsystem onBack={() => setActiveSubView('menu')} />;
@@ -30,6 +31,9 @@ export default function SalesHubPage() {
         <p className="text-lg md:text-xl font-medium tracking-widest mt-1 opacity-90 font-mono">
           SHOP-VERSE MANAGEMENT SYSTEM
         </p>
+        <div>
+           <span>🏢 WORKSPACE: <span className="font-bold text-yellow-300">{companyName}</span></span>
+        </div>
       </header>
 
       {/* MAIN NAV CONTENT */}

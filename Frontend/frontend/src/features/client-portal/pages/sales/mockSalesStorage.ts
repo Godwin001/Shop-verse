@@ -1,4 +1,4 @@
-import { mockInventoryStorage, type InventoryItem } from '../inventory/mockInventoryStorage';
+import { mockInventoryStorage } from '../inventory/mockInventoryStorage';
 
 export interface SalesInvoiceLine {
   sn: number;

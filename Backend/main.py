@@ -1,6 +1,7 @@
 # start backend -- uvicorn main:app --reload
-#start frontend -- npm run dev 
-#npx localtunnel --port 5173
+# start frontend -- npm run dev 
+# npx localtunnel --port 5173
+# npm run deploy-- to deploy to github from frontend
 
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware

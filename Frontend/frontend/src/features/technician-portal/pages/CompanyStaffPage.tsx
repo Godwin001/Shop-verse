@@ -2,16 +2,26 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AgGridReact } from 'ag-grid-react';
-import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
+import { AllCommunityModule, ModuleRegistry, type ColDef } from 'ag-grid-community'; // Added ColDef import
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
+// 1. ADDED: Define an explicit interface matching your SQL field keys
+interface StaffMember {
+  user_id: string | number;
+  full_name: string;
+  email: string;
+  user_role: string;
+}
+
 export default function CompanyStaffPage() {
   const { companyId } = useParams<{ companyId: string }>();
   const navigate = useNavigate();
-  const [staff, setStaff] = useState([]);
+  
+  // 2. HIGHLIGHTED FIX: Typed your useState hook with your interface instead of leaving it empty
+  const [staff, setStaff] = useState<StaffMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [companyName, setCompanyName] = useState('');
   const [error, setError] = useState('');
@@ -21,13 +31,11 @@ export default function CompanyStaffPage() {
       try {
         setLoading(true);
         
-        // Fetch staff for this company
         const staffResponse = await axios.get(
           `http://127.0.0.1:8000/companies/${companyId}/staff`
         );
         setStaff(staffResponse.data);
 
-        // Optionally fetch company details to show the company name
         const companiesResponse = await axios.get('http://127.0.0.1:8000/companies');
         const company = companiesResponse.data.find(
           (c: any) => c.company_id === companyId
@@ -48,14 +56,14 @@ export default function CompanyStaffPage() {
     }
   }, [companyId]);
 
-  const columnDefs = [
+  // 3. HIGHLIGHTED FIX: Explicitly typed the column array configuration with ColDef<StaffMember>[]
+  const columnDefs: ColDef<StaffMember>[] = [
     { 
       field: 'user_id', 
       headerName: 'User ID', 
       flex: 1.2,
       filter: true
     },
-    // Here, the field value shoud be equal to the value of the parameters in the sql for instance full_name is the same as in sql  
     { 
       field: 'full_name', 
       headerName: 'Name', 
@@ -79,7 +87,6 @@ export default function CompanyStaffPage() {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 p-8">
       <div className="max-w-6xl mx-auto">
-        {/* Header with Back Button */}
         <header className="mb-6 border-b border-slate-800 pb-4 flex items-center justify-between">
           <div>
             <button
@@ -103,7 +110,6 @@ export default function CompanyStaffPage() {
           </div>
         </header>
 
-        {/* Main Content */}
         <main className="bg-slate-800/50 p-6 rounded-xl border border-slate-700/60 backdrop-blur-sm">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-slate-200 font-mono">
@@ -127,7 +133,8 @@ export default function CompanyStaffPage() {
             </div>
           ) : (
             <div className="ag-theme-alpine-dark w-full" style={{ height: 500 }}>
-              <AgGridReact
+              {/* 4. HIGHLIGHTED FIX: Added the matching <StaffMember> type assignment string parameter directly here */}
+              <AgGridReact<StaffMember>
                 rowData={staff}
                 columnDefs={columnDefs}
                 pagination={true}
@@ -141,7 +148,6 @@ export default function CompanyStaffPage() {
           )}
         </main>
 
-        {/* Footer Info */}
         <footer className="mt-6 text-center text-slate-500 text-xs font-mono">
           <p>Staff directory for {companyName || 'company'}</p>
         </footer>

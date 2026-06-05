@@ -34,7 +34,6 @@ export default function InventorySubsystem() {
   const navigate = useNavigate();
   
   const companyName = localStorage.getItem('company_name') || 'No Active Workspace Found';
-  const companyId = localStorage.getItem('company_id') || 'No ID Tracked';
   const staffId = localStorage.getItem('staff_id') || 'Admin_User';
 
   const renderLayoutWrapper = (title: string, children: React.ReactNode) => (

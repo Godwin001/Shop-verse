@@ -4,11 +4,20 @@ import axios from 'axios';
 
 // AG-GRID GRAPHICS IMPORT LABELS
 import { AgGridReact } from 'ag-grid-react';
-import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
+import { AllCommunityModule, ModuleRegistry, type ColDef } from 'ag-grid-community'; // Added ColDef import
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
+
+// 1. ADDED: Define an explicit interface matching your SQL field keys
+interface StaffMember {
+  user_id: string | number;
+  full_name: string;
+  email: string;
+  user_role: string;
+}
+
 
 export default function StaffManagementPage() {
   const navigate = useNavigate();
@@ -72,7 +81,7 @@ export default function StaffManagementPage() {
   }, [activeTab, fetchStaffData]);
 
   // AG-GRID COLUMNS ALIGNED EXHAUSTIVELY TO SQL DATABASE KEYFIELDS
-  const columnDefs = [
+  const columnDefs: ColDef<StaffMember>[] = [
     { 
       field: 'user_id', 
       headerName: 'User ID', 
@@ -290,7 +299,7 @@ export default function StaffManagementPage() {
                 ) : (
                   /* INJECTED ALPINE ALPINE-DARK AG-GRID CONTROLLER GRID MATRIX */
                   <div className="ag-theme-alpine w-full shadow-md rounded-xl overflow-hidden border border-slate-300" style={{ height: 400 }}>
-                    <AgGridReact
+                    <AgGridReact <StaffMember>
                       rowData={staffList}
                       columnDefs={columnDefs}
                       pagination={true}
@@ -358,7 +367,7 @@ export default function StaffManagementPage() {
       {/* SYSTEM BRANDED FOOTER STRIP */}
       <footer className="bg-[#7884b0] text-white py-3 px-6 text-xs font-mono tracking-wider flex justify-between items-center shadow-inner relative border-t border-white/10">
         <div className="bg-slate-950/20 px-3 py-1 rounded border border-white/10 flex items-center gap-1.5">
-          <span>👤 AUTHORIZED SESSION ID:</span> <span className="font-bold text-emerald-300">{staffId}</span>
+          <span>👤 AUTHORIZED SESSION USER:</span> <span className="font-bold text-emerald-300">{currentUser}</span>
         </div>
         <div className="flex gap-4 opacity-90 text-[11px]">
           <span>⚡ Secure Node Segment</span>

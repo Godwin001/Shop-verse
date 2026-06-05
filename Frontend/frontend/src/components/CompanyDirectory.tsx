@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { AgGridReact } from 'ag-grid-react';
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
+import type { ColDef } from 'ag-grid-community';
 import { Link } from 'react-router-dom';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -26,7 +27,7 @@ export default function CompanyDirectory() {
     fetchCompanies();
   }, []);
 
-  const columnDefs = [
+  const columnDefs: ColDef[] = [
     { field: 'company_id', headerName: 'Company UUID / ID', flex: 1.5, filter: true },
     { field: 'company_name', headerName: 'Company Name', flex: 1, filter: true },
     // Add columns here based on extra fields in your DB (e.g., status, registration date)
