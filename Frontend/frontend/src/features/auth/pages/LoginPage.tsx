@@ -39,7 +39,7 @@ export default function LoginPage({ onLoginSuccess, dashboardCompanyId }: LoginP
     }
 
     try {
-      const response = await axios.post('https://bright-bats-warn.loca.lt/auth/login', {
+      const response = await axios.post('http://127.0.0.1:8000/auth/login', {
         staff_id: staffId,
         password: password,
         company_id: currentCompanyId // Dynamic company payload context matching the dashboard!
