@@ -16,8 +16,8 @@ import hashlib
 # --- DATABASE SETUP ---
 raw_password = "$A08138529746a"
 safe_password = urllib.parse.quote_plus(raw_password)
-DATABASE_URL = f"postgresql://postgres:{safe_password}@localhost:5432/shop_verse_management"
-
+# Update this line in main.py
+DATABASE_URL = f"postgresql://postgres:{safe_password}@host.docker.internal:5432/shop_verse_management"
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
