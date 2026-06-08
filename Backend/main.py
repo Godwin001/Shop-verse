@@ -3,25 +3,35 @@
 # npx localtunnel --port 5173
 # npm run deploy-- to deploy to github from frontend
 
+import os
+import uuid
+import hashlib
+import urllib.parse
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
-import urllib.parse
 from pydantic import BaseModel
 from models import Base, Company, User
-import uuid
-import hashlib
 
 # --- DATABASE SETUP ---
-raw_password = "$A08138529746a"
-safe_password = urllib.parse.quote_plus(raw_password)
-# Update this line in main.py
-DATABASE_URL = f"postgresql://postgres:{safe_password}@host.docker.internal:5432/shop_verse_management"
+# 1. Look for the live cloud database URL injected by Railway first
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    # Handle cloud provider dialect quirks (SQLAlchemy requires postgresql:// instead of postgres://)
+    if DATABASE_URL.startswith("postgres://"):
+        DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+else:
+    # 2. Local machine / offline environment fallback configuration
+    raw_password = "$A08138529746a"
+    safe_password = urllib.parse.quote_plus(raw_password)
+    DATABASE_URL = f"postgresql://postgres:{safe_password}@localhost:5432/shop_verse_management"
+
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Rebuilds database layout cleanly
+# Rebuilds database layout cleanly automatically on system startup
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -281,7 +291,7 @@ def get_company_staff(company_id: str, db: Session = Depends(get_db)):
 # END OF GET STAFF FOR SPECIFIC COMPANY
 
 
-# SRART OF DELETE STAFF FROM SPECIFIC COMPANY
+# START OF DELETE STAFF FROM SPECIFIC COMPANY
 @app.delete("/companies/{company_id}/staff/{user_id}")
 def delete_company_staff(company_id: str, user_id: str, db: Session = Depends(get_db)):
     try:
@@ -333,7 +343,7 @@ def update_company(company_id: str, is_active: bool = None, db: Session = Depend
     # END OF PAUSE/RESUME OF A COMPANY
 
 
-# START OF DELETE COMPANY QUERRY
+# START OF DELETE COMPANY QUERY
 @app.delete("/companies/{company_id}")
 def delete_company(company_id: str, db: Session = Depends(get_db)):
     try:
@@ -354,7 +364,7 @@ def delete_company(company_id: str, db: Session = Depends(get_db)):
         db.rollback()
         raise HTTPException(status_code=400, detail=f"Deactivation pipeline failure: {str(e)}")
 
-    # END OF DELETE COMPANY QUERRY
+    # END OF DELETE COMPANY QUERY
 
 
 # START OF LOGIN CODE FOR PYTHON BACKEND
