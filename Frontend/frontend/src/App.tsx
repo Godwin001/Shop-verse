@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import StaffManagementPage from './features/client-portal/pages/StaffManagementPage';
 import CompanyPortalPage from './features/client-portal/pages/CompanyPortalPage'; 
 import CompanyDirectoryPage from './features/technician-portal/pages/CompanyDirectoryPage'; // Cleaned .tsx extension
@@ -16,12 +16,9 @@ import SalesHistoryPage from './features/client-portal/pages/sales/SalesHistoryP
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         
-        {/* --- Gateway: Company Identity Login --- */}
-        <Route path="/" element={<CompanyPortalPage />} /> 
-
         {/* --- Step 2: Staff Verification Credentials Portal --- */}
         <Route path="/login_portal" element={<LoginPage />} /> 
 
@@ -68,6 +65,6 @@ export default function App() {
         <Route path="*" element={<CompanyPortalPage />} />
 
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
