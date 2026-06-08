@@ -39,7 +39,7 @@ Base.metadata.create_all(bind=engine)
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://Godwin001.github.io", # 👈 ADD YOUR EXACT GITHUB PAGES URL HERE (No trailing slash!)
+    "https://github.com/Godwin001", # 👈 ADD YOUR EXACT GITHUB PAGES URL HERE (No trailing slash!)
 ]
 
 
