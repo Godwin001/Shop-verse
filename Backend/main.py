@@ -13,6 +13,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from pydantic import BaseModel
 from models import Base, Company, User
+from fastapi.middleware.cors import CORSMiddleware
 
 # --- DATABASE SETUP ---
 # 1. Look for the live cloud database URL injected by Railway first
@@ -34,12 +35,20 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 # Rebuilds database layout cleanly automatically on system startup
 Base.metadata.create_all(bind=engine)
 
+#for local development, add localhost and GitHub Pages URLs to CORS allowlist
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://Godwin001.github.io", # 👈 ADD YOUR EXACT GITHUB PAGES URL HERE (No trailing slash!)
+]
+
+
 app = FastAPI()
 
 # --- CORS MIDDLEWARE ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -404,3 +413,7 @@ def login_company(payload: LoginPayload, db: Session = Depends(get_db)):
         )
 
         #END OF LOGIN CODE FOR PYTHON BACKEND
+
+
+       
+     
