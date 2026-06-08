@@ -16,7 +16,7 @@ export default function CompanyDirectory() {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/companies');
+        const response = await axios.get('https://insightful-sparkle-production-f90d.up.railway.app/companies');
         setCompanies(response.data);
       } catch (error) {
         console.error("Error fetching companies:", error);

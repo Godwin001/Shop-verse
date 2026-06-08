@@ -32,11 +32,11 @@ export default function CompanyStaffPage() {
         setLoading(true);
         
         const staffResponse = await axios.get(
-          `http://127.0.0.1:8000/companies/${companyId}/staff`
+          `https://insightful-sparkle-production-f90d.up.railway.app/companies/${companyId}/staff`
         );
         setStaff(staffResponse.data);
 
-        const companiesResponse = await axios.get('http://127.0.0.1:8000/companies');
+        const companiesResponse = await axios.get('https://insightful-sparkle-production-f90d.up.railway.app/companies');
         const company = companiesResponse.data.find(
           (c: any) => c.company_id === companyId
         );

@@ -30,7 +30,7 @@ export default function CompanyDirectoryPage() {
   const [actionLoading, setActionLoading] = useState(false);
   
   const gridRef = useRef<AgGridReact>(null);
-  const API_BASE_URL = 'http://127.0.0.1:8000';
+  const API_BASE_URL = 'https://insightful-sparkle-production-f90d.up.railway.app';
 
   const fetchCompanies = async () => {
     try {

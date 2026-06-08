@@ -53,11 +53,11 @@ export default function StaffManagementPage() {
     setError('');
     try {
       // 1. Fetch staff matching backend endpoint paths perfectly
-      const response = await axios.get(`http://127.0.0.1:8000/companies/${currentCompanyId}/staff`);
+      const response = await axios.get(`https://insightful-sparkle-production-f90d.up.railway.app/companies/${currentCompanyId}/staff`);
       setStaffList(response.data);
 
       // 2. Query company context directly to pull name data arrays
-      const companiesResponse = await axios.get('http://127.0.0.1:8000/companies');
+      const companiesResponse = await axios.get('https://insightful-sparkle-production-f90d.up.railway.app/companies');
       const company = companiesResponse.data.find(
         (c: any) => c.company_id === currentCompanyId
       );
@@ -128,7 +128,7 @@ export default function StaffManagementPage() {
     };
     
     try {
-      const response = await axios.post('http://127.0.0.1:8000/staff', staffPayload);
+      const response = await axios.post('https://insightful-sparkle-production-f90d.up.railway.app/staff', staffPayload);
       if (response.status === 200 || response.status === 201) {
         alert("Staff user registry created successfully!");
         setName(''); setEmail(''); setStaffId(''); setPassword('');
@@ -149,7 +149,7 @@ export default function StaffManagementPage() {
     if (confirm(`Are you absolutely sure you want to delete Staff ID [${selectedRow.user_id}] from this company?`)) {
       try {
         const response = await axios.delete(
-          `http://127.0.0.1:8000/companies/${currentCompanyId}/staff/${selectedRow.user_id}`
+          `https://insightful-sparkle-production-f90d.up.railway.app/companies/${currentCompanyId}/staff/${selectedRow.user_id}`
         );
         if (response.status === 200) {
           alert("Staff member configuration successfully deleted.");
