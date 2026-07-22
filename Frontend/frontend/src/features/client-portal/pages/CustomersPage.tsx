@@ -110,6 +110,8 @@ export default function CustomersPage() {
           <h3 className="text-xl font-mono tracking-widest text-slate-500 font-bold uppercase animate-pulse">
             COMING SOON...
           </h3>
+          
+            <img src="./src/assets/shopverse_complete_er_diagram.svg" alt="ER Diagram"></img>
         </div>
       </main>
 
