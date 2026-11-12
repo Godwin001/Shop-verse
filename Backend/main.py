@@ -12,8 +12,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from pydantic import BaseModel
-from models import Base, Company, User
 from fastapi.middleware.cors import CORSMiddleware
+
+try:
+    from models import Base, Company, User
+except ModuleNotFoundError:  # pragma: no cover - supports package-style execution
+    from .models import Base, Company, User
 
 # --- DATABASE SETUP ---
 # 1. Look for the live cloud database URL injected by Railway first
