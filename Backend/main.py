@@ -29,7 +29,7 @@ if DATABASE_URL:
         DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 else:
     # 2. Local machine / offline environment fallback configuration
-    raw_password = "$A08138529746a"
+    raw_password = "$kiutfygh"
     safe_password = urllib.parse.quote_plus(raw_password)
     DATABASE_URL = f"postgresql://postgres:{safe_password}@localhost:5432/shop_verse_management"
 

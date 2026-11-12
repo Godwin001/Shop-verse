@@ -18,7 +18,7 @@ export default function CompanyPortalPage() {
   // --- SESSION STATE ---
   const [currentCompany, setCurrentCompany] = useState<CompanySession | null>(null);
 
-  const API_BASE_URL = 'https://insightful-sparkle-production-f90d.up.railway.app';
+  const API_BASE_URL = 'https://shop-verse-rose.vercel.app';
 
   const handleCompanyLogin = async (e: React.FormEvent) => {
     e.preventDefault();
